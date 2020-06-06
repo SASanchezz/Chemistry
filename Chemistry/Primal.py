@@ -1,6 +1,4 @@
-#git checkout mybranch
-#git branch --set-upstream-to=origin/mybranch
-
+# NEEEEW!!!
 import pandas as pd
 import numpy as np
 import Atom_data as info
