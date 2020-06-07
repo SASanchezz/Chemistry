@@ -1,4 +1,4 @@
-# NEEEEW!!!
+
 import pandas as pd
 import numpy as np
 import Atom_data as info
@@ -41,11 +41,12 @@ class Molecula1(object):
         return structure
 
     def Repeat(self):
-        print(Molecula1.values)
+        useless = self.Data_frame()
+        #print(Molecula1.values)
 
         if len(Molecula1.values) != len(set(Molecula1.values)):
             Molecula1.repetition = 1
-        print("repetition: ", Molecula1.repetition)
+        #print("repetition: ", Molecula1.repetition)
 
 
     def Data_frame(self):
@@ -62,7 +63,7 @@ class Molecula1(object):
 
         pandas_structure = pd.Series(Molecula1.values)
         pandas_structure.index = indexes
-        print ("structure: ",pandas_structure)  # HERE!!!!!!!!!!!!
+        #print ("structure: ",pandas_structure)  # HERE!!!!!!!!!!!!
         return pandas_structure
 
 
@@ -70,6 +71,7 @@ class Molecula1(object):
 
 
     def Weight(self):         #finding out info
+        useless = self.Repeat()
         global weight
         weight = 0
         Structure = self.Data_frame()
@@ -112,8 +114,8 @@ class Molecula1(object):
 
 
 shor = Molecula1("5 C2H5O5")
-print(shor.Repeat())
-print(shor.values)
+print(shor.Weight())
+print(shor.repetition)
 
 #print(shor.repetition)
 #print(info.Data["Symbol"])
