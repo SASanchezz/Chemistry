@@ -67,53 +67,34 @@ class Molecula1(object):
         return pandas_structure, values
 
 
-
-
-
-    def Weight(self):         #finding out info
+    def Weight(self):
         repetition = self.Repeat()
         global weight
         weight = 0
         Structure, _ = self.Data_frame()
 
-        if repetition == 0:
 
-            for sign in Structure:
-                elem_from_Structure = Structure[Structure == sign].index[0]
-                print("element: ", elem_from_Structure) # HERE!!!!!!!!!!!!
-                for element in info.Data["Symbol"]:
-                    if elem_from_Structure == element :
+        for index1 in Structure.index:
+            for element in info.Data["Symbol"]:
+                print(info.Data[info.Data["Symbol"] == element].index.tolist())
+                if index1 == element:     # Structure[index] actually is atom coefficient
+                    index_of_atom = info.Data[info.Data["Symbol"] == index1].index.tolist()  # index of atom from formula in our DataFrame
 
-                        atom_coefficient = Structure[elem_from_Structure] # multiplier of atom weight
+                    constant_weight = round(float(info.Data["Atom weight"][index_of_atom]), 3)  # constant weight of atom in DataFrame
 
-                        index_of_atom = info.Data[info.Data["Symbol"] == elem_from_Structure].index.tolist() # index of atom from formula in our DataFrame
+                    definite_weight = Structure[index1] * constant_weight  # Multiplying of coefficient and mass
 
-                        constant_weight = round(float(info.Data["Atom weight"][index_of_atom]), 3) #constant weight of atom in DataFrame
+                    weight += definite_weight
 
-                        definite_weight = atom_coefficient * constant_weight #Multiplying of coefficient and mass
+                elif (index1 != element and  info.Data[info.Data["Symbol"] == element].index.tolist() == 109) :
+                    print("There is no such element: ", index1)
 
-
-                        weight +=  definite_weight
-
-            return round(molecula_coefficient * round(weight, 3), 3)
-
-
-        elif repetition == 1:
-            storage = []
-            for sign in range(0, len(Structure)):
-                for sign2 in range(sign+1, len(Structure)):
-                    if Structure[sign] == Structure[sign2] :
-                        storage.append(str(Structure[sign])+"1")
-            return storage
+        return round(molecula_coefficient * round(weight, 3), 3)
 
 
 
 
-
-
-
-
-shor = Molecula1("5 C2H5O5")
+shor = Molecula1("5 C2H5O5J3")
 
 print(shor.Weight())
 
