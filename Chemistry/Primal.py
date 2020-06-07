@@ -11,8 +11,6 @@ class Atom1 (object):
 
 
 class Molecula1(object):
-    repetition = 0
-    values = []
 
     def __init__(self, formula):  #Initial formula
         self.molecula = formula
@@ -41,16 +39,18 @@ class Molecula1(object):
         return structure
 
     def Repeat(self):
-        useless = self.Data_frame()
+        repetition = 0
+        _, values = self.Data_frame()
         #print(Molecula1.values)
 
-        if len(Molecula1.values) != len(set(Molecula1.values)):
-            Molecula1.repetition = 1
+        if len(values) != len(set(values)):
+            repetition = 1
+        return repetition
         #print("repetition: ", Molecula1.repetition)
 
 
     def Data_frame(self):
-
+        values = []
         indexes = []
 
         structure = self.making_list()
@@ -59,24 +59,24 @@ class Molecula1(object):
             if (type(unit) == str and unit != " "):
                 indexes.append(unit)
             elif type(unit) == int:
-                Molecula1.values.append(unit)
+                values.append(unit)
 
-        pandas_structure = pd.Series(Molecula1.values)
+        pandas_structure = pd.Series(values)
         pandas_structure.index = indexes
         #print ("structure: ",pandas_structure)  # HERE!!!!!!!!!!!!
-        return pandas_structure
+        return pandas_structure, values
 
 
 
 
 
     def Weight(self):         #finding out info
-        useless = self.Repeat()
+        repetition = self.Repeat()
         global weight
         weight = 0
-        Structure = self.Data_frame()
+        Structure, _ = self.Data_frame()
 
-        if Molecula1.repetition == 0:
+        if repetition == 0:
 
             for sign in Structure:
                 elem_from_Structure = Structure[Structure == sign].index[0]
@@ -98,12 +98,12 @@ class Molecula1(object):
             return round(molecula_coefficient * round(weight, 3), 3)
 
 
-        elif Molecula1.repetition == 1:
+        elif repetition == 1:
             storage = []
             for sign in range(0, len(Structure)):
                 for sign2 in range(sign+1, len(Structure)):
-                    if Storage[sign] == Storage[sign2] :
-                        storage.append(str(sign)+"1")
+                    if Structure[sign] == Structure[sign2] :
+                        storage.append(str(Structure[sign])+"1")
             return storage
 
 
@@ -114,8 +114,9 @@ class Molecula1(object):
 
 
 shor = Molecula1("5 C2H5O5")
+
 print(shor.Weight())
-print(shor.repetition)
+
 
 #print(shor.repetition)
 #print(info.Data["Symbol"])
