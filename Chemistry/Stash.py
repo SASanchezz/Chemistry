@@ -35,3 +35,21 @@
                     storage.append(str(Structure[sign])+str(additional_number))
                     additional_number += 1
         return Structure.index""" #Previous attempt to calculate weight
+
+
+
+
+
+
+
+
+
+
+"""def Repeat(self):
+        repetition = 0
+        _, values = self.Data_frame()
+        #print(Molecula1.values)
+
+        if len(values) != len(set(values)):
+            repetition = 1
+        return repetition"""  #repetition of formula values

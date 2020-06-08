@@ -18,16 +18,37 @@ class Molecula1(object):
 
 
     def making_list(self): # Turning formula up to list
+        molecula_list = []
         structure = []
+
         global molecula_coefficient
 
-
-        for element in self.molecula: # into list
+           # into list
+        for element in self.molecula:
             try:
                 element = int(element)
             except ValueError:
                 pass
-            structure.append(element)
+            molecula_list.append(element)  #molecula_list[number] atucally is scroll of formula
+
+        for number in range(0, len(molecula_list) - 1):
+            if type(molecula_list[number]) == int:              # if unit is number
+                structure.append(molecula_list[number])
+
+            elif (type(molecula_list[number]) == str and
+                  type(molecula_list[number + 1])== int and
+                  molecula_list[number].isupper()):             #if unit is upper str before int
+                structure.append(molecula_list[number])
+
+            elif (type(molecula_list[number]) == str and
+                  molecula_list[number].isupper() and
+                  molecula_list[number + 1].islower()):         # if unit is complex str
+                structure.append(molecula_list[number] + molecula_list[number + 1])
+
+        if (type(molecula_list[-1]) == int or molecula_list[-1].isupper()): # add last value of list
+            structure.append(molecula_list[-1])
+
+
 
         if (type(structure[0]) == int or type(structure[0]) == float):  # determining of coefficient
             molecula_coefficient = structure[0]
@@ -38,14 +59,7 @@ class Molecula1(object):
 
         return structure
 
-    def Repeat(self):
-        repetition = 0
-        _, values = self.Data_frame()
-        #print(Molecula1.values)
 
-        if len(values) != len(set(values)):
-            repetition = 1
-        return repetition
         #print("repetition: ", Molecula1.repetition)
 
 
@@ -68,7 +82,6 @@ class Molecula1(object):
 
 
     def Weight(self):
-        repetition = self.Repeat()
         global weight
         weight = 0
         Structure, _ = self.Data_frame()
@@ -93,7 +106,7 @@ class Molecula1(object):
 
 
 
-shor = Molecula1("5 C2H5O5J3")
+shor = Molecula1("5C2H5O3")
 
 print(shor.Weight())
 
