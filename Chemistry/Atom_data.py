@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 
-with open ("Atom info") as file:
+with open ("Atom_info") as file:
 
     general_list = []
 
