@@ -1,8 +1,14 @@
 import numpy as np
 import pandas as pd
+import os 
 
+cwd = os.getcwd()
+if "Atom_info" not in os.listdir(cwd):
+    cwd += "\Chemistry\Atom_info" 
+else:
+    pass
 
-with open ("Atom_info") as file:
+with open (cwd) as file:
 
     general_list = []
 
