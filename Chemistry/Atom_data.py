@@ -6,7 +6,7 @@ cwd = os.getcwd()
 if "Atom_info" not in os.listdir(cwd):
     cwd += "\Chemistry\Atom_info" 
 else:
-    pass
+    cwd += "\Atom_info"
 
 with open (cwd) as file:
 

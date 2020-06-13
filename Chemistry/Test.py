@@ -1,5 +1,5 @@
-import os
+import pandas as pd
+import numpy as np
+import Atom_data as info
 
-cwd = os.getcwd()
-cwd += "\Chemistry\Atom_info" 
-print (cwd)
+print(info.Data["Symbol"].values)
