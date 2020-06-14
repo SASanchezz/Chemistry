@@ -88,17 +88,17 @@ class Molecula1(object):
 
 
         for index1 in Structure.index: # index1 is actual element of formula
-            for element in info.Data["Symbol"]:
+            for element in info.General_data()["Symbol"]:
                 if index1 == element:     # Structure[index] actually is atom coefficient
-                    index_of_atom = info.Data[info.Data["Symbol"] == index1].index.tolist()  # index of atom from formula in our DataFrame
+                    index_of_atom = info.General_data()[info.General_data()["Symbol"] == index1].index.tolist()  # index of atom from formula in our DataFrame
 
-                    constant_weight = round(float(info.Data["Atom weight"][index_of_atom]), 3)  # constant weight of atom in DataFrame
+                    constant_weight = round(float(info.General_data()["Atom weight"][index_of_atom]), 3)  # constant weight of atom in DataFrame
 
                     definite_weight = Structure[index1] * constant_weight  # Multiplying of coefficient and mass
 
                     weight += definite_weight
 
-            if (index1 not in info.Data["Symbol"].values)  :
+            if (index1 not in info.General_data()["Symbol"].values)  :
                     print("There is no such element: ", index1)
 
         return round(molecula_coefficient * round(weight, 3), 3)
