@@ -120,7 +120,7 @@ class Molecula1(object):
 
 
 
-shor = Molecula1("C2H5CHOKl")
+shor = Molecula1("C2H5CHO")
 
 print(shor.Weight())
 
