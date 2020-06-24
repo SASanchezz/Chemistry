@@ -53,3 +53,26 @@
         if len(values) != len(set(values)):
             repetition = 1
         return repetition"""  #repetition of formula values
+
+
+
+
+
+
+
+
+
+""" for name in List_file[1::4]:
+            full_name.append(name)
+        for sign1 in List_file[2::4]:
+            sign.append(sign1)
+        for val in List_file[3::4]:
+            valence.append(val)
+
+        Valence_data = pd.DataFrame ({
+        "Name" : full_name,
+        "Symbol" : sign,
+        "Valence" : valence
+                            },
+    index = index_list
+    )"""

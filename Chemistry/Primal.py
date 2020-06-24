@@ -5,13 +5,12 @@ import Atom_data as info
 
 
 class Atom1 (object):
-    def __init__(self, ):
+    def __init__(self):
         pass
 
 
 
 class Molecula1(object):
-
     def __init__(self, formula):  #Initial formula
         self.molecula = formula
 
@@ -36,7 +35,7 @@ class Molecula1(object):
                 structure.append(molecula_list[number])
 
             elif (type(molecula_list[number]) == str and
-                  type(molecula_list[number + 1])== int and
+                  type(molecula_list[number + 1]) == int and
                   molecula_list[number].isupper()):             #if unit is upper str before int
                 structure.append(molecula_list[number])
 
@@ -45,10 +44,14 @@ class Molecula1(object):
                   molecula_list[number + 1].islower()):         # if unit is complex str
                 structure.append(molecula_list[number] + molecula_list[number + 1])
 
+            elif (type(molecula_list[number]) == str and
+                  molecula_list[number].isupper() and
+                  molecula_list[number + 1].isupper()):         # if unit is without value
+                structure.append(molecula_list[number])
+                structure.append(1)
+
         if (type(molecula_list[-1]) == int or molecula_list[-1].isupper()): # add last value of list
             structure.append(molecula_list[-1])
-
-
 
         if (type(structure[0]) == int or type(structure[0]) == float):  # determining of coefficient
             molecula_coefficient = structure[0]
@@ -60,24 +63,26 @@ class Molecula1(object):
         return structure
 
 
-        #print("repetition: ", Molecula1.repetition)
-
-
     def Data_frame(self):
+        add_number = 1
+        repeat_list = []
         values = []
         indexes = []
+        repetition = False
 
         structure = self.making_list()
 
-        for unit in structure:
+        for unit in structure:   #If there are repetitions of atoms in formula
             if (type(unit) == str and unit != " "):
-                indexes.append(unit)
-            elif type(unit) == int:
+                indexes.append(str(add_number) + " " + unit)
+            if type(unit) == int:
                 values.append(unit)
+                add_number += 1
 
+        if type(structure[-1]) == str:
+            values.append(1)
         pandas_structure = pd.Series(values)
         pandas_structure.index = indexes
-        #print ("structure: ",pandas_structure)  # HERE!!!!!!!!!!!!
         return pandas_structure, values
 
 
@@ -89,8 +94,10 @@ class Molecula1(object):
 
         for index1 in Structure.index: # index1 is actual element of formula
             for element in info.General_data()["Symbol"]:
-                if index1 == element:     # Structure[index] actually is atom coefficient
-                    index_of_atom = info.General_data()[info.General_data()["Symbol"] == index1].index.tolist()  # index of atom from formula in our DataFrame
+
+                if (index1[-2:].strip() == element):     # Structure[index] actually is atom coefficient
+
+                    index_of_atom = info.General_data()[info.General_data()["Symbol"] == index1[-2:].strip()].index.tolist()  # index of atom from formula in our DataFrame
 
                     constant_weight = round(float(info.General_data()["Atom weight"][index_of_atom]), 3)  # constant weight of atom in DataFrame
 
@@ -98,15 +105,22 @@ class Molecula1(object):
 
                     weight += definite_weight
 
-            if (index1 not in info.General_data()["Symbol"].values)  :
-                    print("There is no such element: ", index1)
 
+            if (index1[-2:].strip() not in info.General_data()["Symbol"].values):
+                print("There is no such element: ", index1[-2:].strip())
         return round(molecula_coefficient * round(weight, 3), 3)
 
 
+    def Add_atom(self):
+        Structure, _ = self.Data_frame()
+        Valence = info.Valence()
+
+        for element in Structure.index:
+            print(element)
 
 
-shor = Molecula1("5C2H5O3")
+
+shor = Molecula1("C2H5CHOKl")
 
 print(shor.Weight())
 
